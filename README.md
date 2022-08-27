@@ -1,6 +1,6 @@
 # open_python 方便的使用便携版Python 
 
-支持 win7 32bit Python 3.8 及其以上
+支持 win7 32bit Python 3.8
 
 **安装&使用**
 
