@@ -5,7 +5,7 @@
 **安装&使用**
 
 [点我](https://www.lanzout.com/iXJzy0ae7qkd)下载Python 3.8.10 32位 便携版zip压缩包  
-将其解压到优盘即可完成安装
+将其解压到优盘即可完成安装  
 使用方法： 双击运行open_python.bat 
 
 ---
