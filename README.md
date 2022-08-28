@@ -18,12 +18,8 @@
 2. 复制安装路径下的*Pythonx.y*文件夹到移动存储设备（如U盘）  
 3. 下载open_python.py和open_python.bat放入python.exe同目录下[点我下载zip压缩文件](https://github.com/xkk1/open_python/archive/refs/heads/main.zip)  
 4. 利用二进制编辑器将*Pythonx.y/Scripts*目录下的\*.exe文件中的绝对路径改为相对路径（我用的是[Notepad++](https://notepad-plus-plus.org/)）
-
----
-
-附：  
-Python官网：<https://www.python.org/>  
-Notepad++官网：<https://notepad-plus-plus.org/>  
+  
 以上网站可能在国内不易访问，以下提供相应的蓝奏云链接  
 Python 3.8.10 32位 安装程序：<https://www.lanzout.com/ik134sx5x9i>  
 Notepad++ 8.4.4 32位 安装程序：<https://www.lanzout.com/i8Lc00ae8zgj>  
+open_python 0.0.4 zip压缩包：<https://www.lanzout.com/iCUBs0afqm2b>  
