@@ -300,7 +300,7 @@ if __name__ == '__main__':
         # for i in file_name.split('\\')[:-1]:
         #     file_path += i + '/'
         file_path = os.path.dirname(file_name)
-        os.system(f'cd /d {file_path} & python {argv}')
+        os.system(f'cd /d {file_path} & {python_exe} {argv}')
         """
         temp = open('temporary_file.bat', 'w')
         if file_path != '':
