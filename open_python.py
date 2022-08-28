@@ -13,36 +13,40 @@ import tkinter.scrolledtext
 import webbrowser
 import sys
 import os
+import os.path
 # import threading
 # import subprocess
 
 
 pyvi = sys.version_info
 python_version = f'{pyvi.major}.{pyvi.minor}.{pyvi.micro}'
+python_path = os.path.dirname(os.path.abspath(sys.argv[0])) + os.sep
+python_exe = python_path + "python.exe"
+pythonw_exe = python_path + "pythonw.exe"
 
 
-def run_idle():
-    os.system('start pythonw Lib\idlelib\idle.pyw')
+def open_idle():
+    os.system(f'cd /d {python_path} & start pythonw Lib\idlelib\idle.pyw')
     # def idle():
     #     os.system('pythonw Lib\idlelib\idle.pyw')
     # threading.Thread(target=idle).start() # , args=(old_verson, ))
 
-def run_python():
-    os.system('start python')
+def open_python():
+    os.system(f'cd /d {python_path} & start python')
     # def python():
     #     subprocess.call(
     #         'python', 
     #         creationflags=subprocess.CREATE_NEW_CONSOLE)
     # threading.Thread(target=python).start() # , args=(old_verson, ))
 
-def run_manuals():
-    os.system(f'start Doc\python{pyvi.major}{pyvi.minor}{pyvi.micro}.chm')
+def open_manuals():
+    os.system(f'cd /d {python_path} & start Doc\python{pyvi.major}{pyvi.minor}{pyvi.micro}.chm')
     # def manuals():
     #     os.system(f'Doc\python{pyvi.major}{pyvi.minor}{pyvi.micro}.chm')
     # threading.Thread(target=manuals).start() # , args=(old_verson, ))
 
-def run_module_docs():
-    os.system('start python -m pydoc -b')
+def open_module_docs():
+    os.system(f'cd /d {python_path} & start python -m pydoc -b')
     # def module_docs():
     #     subprocess.call(
     #         'python -m pydoc -b', 
@@ -60,10 +64,11 @@ def run_py():
             )#返回文件名--打开
     # print(file_name)
     if file_name != '':
-        file_path = ''
-        for i in file_name.split('/')[:-1]:
-            file_path += i + '/'
-        os.system(f'cd /d {file_path} & start python "{file_name}"')
+        # file_path = ''
+        # for i in file_name.split('/')[:-1]:
+        #     file_path += i + '/'
+        file_path = os.path.dirname(file_name)
+        os.system(f'cd /d {file_path} & start "{file_name}" "{python_exe}" "{file_name}"')
         """
         def py(file_name):
             # os.system('pythonw "' + file_name + '"')
@@ -92,13 +97,11 @@ def run_pyw():
             ('All Files', '*')],
             )
     if file_name != '':
-        file_path = ''
-        for i in file_name.split('/')[:-1]:
-            file_path += i + '/'
-        os.system(f'cd /d {file_path} & start pythonw "{file_name}"')
+        file_path = os.path.dirname(file_name)
+        os.system(f'cd /d {file_path} & start "{file_name}" "{pythonw_exe}" "{file_name}"')
 
-def run_scripts():
-    os.system("cd Scripts & start cmd")
+def open_scripts():
+    os.system(f"cd /d {python_path}Scripts{os.sep} & start cmd")
     """
     def scripts():
         temp = open('temporary_file.bat', 'w')
@@ -113,8 +116,8 @@ def run_scripts():
     threading.Thread(target=scripts).start()
     """
 
-def run_path():
-    os.system('start explorer %s' % os.path.abspath('.'))
+def open_path():
+    os.system('start explorer %s' % python_path) # os.path.abspath('.'))
 
 def show_information(information="", title="Python便携版信息", icon="Lib\idlelib\Icons\idle.ico"):
     """显示信息"""
@@ -221,12 +224,13 @@ run_python.bat支持的命令行参数：
 
 关于
 Python {python_version} 便携版启动脚本
-版本：V0.0.3
+版本：V0.0.4
 更新日志：
-    1、重写了打开程序逻辑
-    2、优化了主窗口显示
-    3、更详细的帮助
-    4、帮助增加保存和复制功能
+    1. 解决了不能运行脚本的重大BUG
+    2. 重写了打开程序逻辑
+    3. 优化了主窗口显示
+    4. 更详细的帮助
+    5. 帮助增加保存、复制、右键菜单
 制作者：小喾苦
 联系方式：
   邮箱：3434623263@qq.com
@@ -254,16 +258,16 @@ def main():
     frame = tk.Frame(root)
     frame.pack(padx=4, pady=4)
     
-    button_idle = tk.Button(frame, text='启动\nIDLE', command=run_idle)
+    button_idle = tk.Button(frame, text='启动\nIDLE', command=open_idle)
     button_idle.grid(row=0, column=0, padx=4, pady=4, sticky=tk.E+tk.W)
     
-    button_python = tk.Button(frame, text=f'Python\n{python_version}', command=run_python)
+    button_python = tk.Button(frame, text=f'Python\n{python_version}', command=open_python)
     button_python.grid(row=0, column=1, padx=4, pady=4, sticky=tk.N+tk.S+tk.E+tk.W)
     
-    button_manuals = tk.Button(frame, text=f'Python {python_version}\nManuals手册', command=run_manuals)
+    button_manuals = tk.Button(frame, text=f'Python {python_version}\nManuals手册', command=open_manuals)
     button_manuals.grid(row=0, column=2, padx=4, pady=4, sticky=tk.N+tk.S+tk.E+tk.W)
     
-    button_module_docs = tk.Button(frame, text=f'Python {python_version}\nModule Docs', command=run_module_docs)
+    button_module_docs = tk.Button(frame, text=f'Python {python_version}\nModule Docs', command=open_module_docs)
     button_module_docs.grid(row=1, column=0, padx=4, pady=4, sticky=tk.N+tk.S+tk.E+tk.W)
     
     button_py = tk.Button(frame, text='运行\n*.py文件', command=run_py)
@@ -272,10 +276,10 @@ def main():
     button_pyw = tk.Button(frame, text='运行\n*.pyw文件', command=run_pyw)
     button_pyw.grid(row=1, column=2, padx=4, pady=4, sticky=tk.N+tk.S+tk.E+tk.W)
     
-    button_scripts = tk.Button(frame, text='Scripts\n可用pip等命令', command=run_scripts)
+    button_scripts = tk.Button(frame, text='Scripts\n可用pip等命令', command=open_scripts)
     button_scripts.grid(row=2, column=0, padx=4, pady=4, sticky=tk.N+tk.S+tk.E+tk.W)
     
-    button_path = tk.Button(frame, text='打开\n工作目录', command=run_path)
+    button_path = tk.Button(frame, text='打开\n安装目录', command=open_path)
     button_path.grid(row=2, column=1, padx=4, pady=4, sticky=tk.N+tk.S+tk.E+tk.W)
     
     button_help = tk.Button(frame, text='show help\n帮助信息', command=show_help)
@@ -292,9 +296,10 @@ if __name__ == '__main__':
         for i in sys.argv[1:]:
             argv += ' "' + i +'"'
         file_name = sys.argv[1]
-        file_path = ''
-        for i in file_name.split('\\')[:-1]:
-            file_path += i + '/'
+        # file_path = ''
+        # for i in file_name.split('\\')[:-1]:
+        #     file_path += i + '/'
+        file_path = os.path.dirname(file_name)
         os.system(f'cd /d {file_path} & python {argv}')
         """
         temp = open('temporary_file.bat', 'w')
